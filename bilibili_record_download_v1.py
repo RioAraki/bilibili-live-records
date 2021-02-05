@@ -43,7 +43,7 @@ def Schedule_cmd(blocknum, blocksize, totalsize):
     # time.sleep(0.1)
     f.write('\r')
 
-# 字节bytes转化K\M\G
+# 字节bytes转化KB\MB\GB
 def format_size(bytes):
     try:
         bytes = float(bytes)
@@ -63,7 +63,8 @@ def format_size(bytes):
 
 
 #  下载直播回放
-def down_record(title, record, url, start_url):
+# TODO: 自定义下载目录
+def download_clip(title, record, url, start_url):
     currentVideoPath = os.path.join(os.getcwd(), 'bilibili_record', record)  # 当前目录作为下载目录
     lock.acquire()
     try:
@@ -164,7 +165,7 @@ if __name__ == '__main__':
         start_time = time.time()
         # down_record(title, url, start_url)
         # thread pools
-        th = threading.Thread(target=down_record, args=(title, record_id, url, start_url))
+        th = threading.Thread(target=download_clip, args=(title, record_id, url, start_url))
         threadpools.append(th)
 
     # thread start!
